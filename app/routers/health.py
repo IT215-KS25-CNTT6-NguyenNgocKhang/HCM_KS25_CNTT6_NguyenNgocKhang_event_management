@@ -3,7 +3,10 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.db.database import get_db
 
-health_check_router = APIRouter(prefix="/health", tags=["Health Check"])
+health_check_router = APIRouter(
+    prefix="/health", 
+    tags=["Health Check"]
+)
 
 @health_check_router.get("")
 def health_check(db: Session = Depends(get_db)):

@@ -11,14 +11,14 @@ class EventModel(Base):
     name = Column(String(100), nullable= False)
     description = Column(Text)
     owner_id = Column(Integer, ForeignKey("users.id"), nullable= False)
-    create_at = Column(DateTime, default= lambda : datetime.now(), nullable= False)
+    created_at = Column(DateTime, default= lambda : datetime.now(), nullable= False)
 
     user = relationship("UserModel", back_populates= "events")
     event_staff = relationship("EventStaffModel", back_populates= "events")
     tasks = relationship("EventTaskModel", back_populates= "event")
 
 class EventStaffModel(Base):
-    __tablename__ = "event_staffs"
+    __tablename__ = "event_staff"
 
     event_id = Column(Integer, ForeignKey("events.id"), primary_key= True)
     user_id = Column(Integer, ForeignKey("users.id"), primary_key= True)

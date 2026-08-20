@@ -12,7 +12,7 @@ class UserModel(Base):
     full_name = Column(String(100), nullable= False)
     role = Column(Enum("USER", "ADMIN"), default= "USER") # USER hoặc ADMIN
     is_active = Column(Boolean, default= True)
-    create_at = Column(DateTime, default= lambda : datetime.now(),nullable= False)
+    created_at = Column(DateTime, default= lambda : datetime.now(),nullable= False)
 
     events = relationship("EventModel", back_populates= "user")
     event_staff = relationship("EventStaffModel", back_populates= "users")

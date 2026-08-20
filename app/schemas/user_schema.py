@@ -7,17 +7,11 @@ class UserBase(BaseModel):
     full_name : str
 
 class UserCreate(UserBase):
-    role : str
-    is_active : bool
-    create_at : datetime
+    password: str
 
 class UserUpdate(BaseModel):
-    email : Optional[str] = None
-    full_name : Optional[str] = None
-    role : Optional[str] = None
-    is_active : Optional[bool] = None
-    create_at : Optional[datetime] = None
-
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None
 
 class UserResponse(UserBase):
     id : int

@@ -10,10 +10,10 @@ class EventTaskModel(Base):
     event_id = Column(Integer, ForeignKey("events.id"), nullable= False)
     title = Column(String(255), nullable= False)
     description = Column(Text)
-    assignee_id = Column(Integer, ForeignKey("users.id"), nullable= False)
+    assignee_id = Column(Integer, ForeignKey("users.id"), nullable= True)
     status = Column(Enum("TODO", "IN_PROGRESS", "DONE"), default= "TODO") # TO DO hoặc "IN_PROGRESS" hoặc "DONE"
     priority = Column(Enum("LOW", "MEDIUM", "HIGH"), default= "LOW") # LOW / MEDIUM / HIGH
-    due_date = Column(DateTime, default= lambda : datetime.now())
+    due_date = Column(DateTime)
     created_at = Column(DateTime, default= lambda : datetime.now(), nullable= False)
 
     event = relationship("EventModel", back_populates= "tasks")
