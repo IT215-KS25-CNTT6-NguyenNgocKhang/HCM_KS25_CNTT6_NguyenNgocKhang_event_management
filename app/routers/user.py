@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, Request
 from app.models.user import UserModel
 from app.dependencies.dependency import get_current_user, RoleChecker
 from app.services import user_service
@@ -9,27 +9,31 @@ from typing import List
 from app.utils.response import success_response
 from typing import Optional
 
-user_router = APIRouter(prefix="/user", tags=["Users"])
+user_router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @user_router.get("/me", status_code=status.HTTP_200_OK)
-def get_my_profile(current_user: UserModel = Depends(get_current_user)):
+def get_my_profile(request : Request, current_user: UserModel = Depends(get_current_user)):
     user_info = user_schema.UserResponse(
-        id=current_user.id,
-        email=current_user.email,
-        full_name=current_user.full_name,
-        role=current_user.role,
-        is_active=current_user.is_active,
-        created_at=current_user.created_at,
+        id= current_user.id,
+        email= current_user.email,
+        full_name= current_user.full_name,
+        role= current_user.role,
+        is_active= current_user.is_active,
+        created_at= current_user.created_at,
     )
 
     return success_response(
-        data=user_info, message="Xác thực thành công", status_code=200
+        request= request,
+        status_code= 200,
+        message= "Lấy thông tin thành công",
+        data= user_info
     )
 
 
 @user_router.get("", status_code=status.HTTP_200_OK)
 def get_all_user(
+    request : Request, 
     search_name: Optional[str] = None,
     search_email: Optional[str] = None,
     search_status: Optional[bool] = None,
@@ -41,7 +45,8 @@ def get_all_user(
     response_data = [user_schema.UserResponse.model_validate(u) for u in data]
 
     return success_response(
-        data=response_data,
-        message="Xác thực thành công! Chào mừng Admin!",
-        status_code=200,
+        request= request,
+        status_code= 200,
+        message= "Xác thực thành công! Chào mừng Admin!",
+        data= response_data
     )

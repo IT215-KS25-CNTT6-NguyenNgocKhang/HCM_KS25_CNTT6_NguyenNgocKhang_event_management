@@ -23,7 +23,12 @@ def login(user : UserLogin, db : Session = Depends(get_db)):
 
     role_name = user_data.role if user_data.role else "USER"
 
-    access_token = create_access_token(data={"sub": user_data.email, "id": user_data.id, "role": role_name})
+    access_token = create_access_token(
+        data={
+            "sub": user_data.email, 
+            "id": user_data.id, 
+            "role": role_name
+        })
 
     return {
         "message": "Đăng nhập thành công",
