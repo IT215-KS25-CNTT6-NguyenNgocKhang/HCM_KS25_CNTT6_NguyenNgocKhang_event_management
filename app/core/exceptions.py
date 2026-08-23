@@ -22,3 +22,7 @@ class BadRequestException(ExceptionBase):
 class ForbiddenException(ExceptionBase):
     def __init__(self, message: str = "Bạn không có quyền truy cập", error: Any = None):
         super().__init__(status_code=status.HTTP_403_FORBIDDEN, message=message, error=error)
+
+class UnauthorizedException(ExceptionBase):
+    def __init__(self, message: str = "Không thể xác thực thông tin đăng nhập", error: Any = None):
+        super().__init__(status_code = status.HTTP_401_UNAUTHORIZED, message= message, error= error)
