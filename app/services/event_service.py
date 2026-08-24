@@ -206,6 +206,7 @@ def get_event_members(
             UserModel.id.label("user_id"),
             UserModel.email,
             UserModel.full_name,
+            EventStaffModel.event_id,
             EventStaffModel.role,
             EventStaffModel.joined_at,
         ).join(EventStaffModel, UserModel.id == EventStaffModel.user_id).filter(EventStaffModel.event_id == event_id).all()

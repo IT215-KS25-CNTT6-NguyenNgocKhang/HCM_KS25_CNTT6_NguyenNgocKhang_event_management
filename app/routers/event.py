@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, status, Request
 from app.db.database import get_db
 from sqlalchemy.orm import Session
-from app.schemas.event_schema import EventCreate, EventResponse, EventUpdate, AddMemberRequest, MemberResponse
+from app.schemas.event_schema import EventCreate, EventResponse, EventUpdate
+from app.schemas.event_staff_schema import EventStaffCreate, EventStaffResponse
 from app.models.user import UserModel
 from app.services import event_service
 from app.utils.response import success_response
@@ -113,7 +114,7 @@ def delete_event(
 def add_member(
     request: Request,
     event_id: int,
-    member_in: AddMemberRequest,
+    member_in: EventStaffCreate,
     current_user: UserModel = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -145,7 +146,7 @@ def get_event_members(
 ):
     members = event_service.get_event_members(db, event_id, current_user)
 
-    data = [MemberResponse.model_validate(m).model_dump() for m in members]
+    data = [EventStaffResponse.model_validate(m).model_dump() for m in members]
 
     return success_response(
         request=request,

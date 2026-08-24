@@ -20,17 +20,3 @@ class EventResponse(EventBase):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
-
-# MEMBER SCHEMAS 
-class AddMemberRequest(BaseModel):
-    user_id: int
-    role: str = Field(default="MEMBER")
-
-class MemberResponse(BaseModel):
-    user_id: int
-    email: str
-    full_name: str
-    role: str
-    joined_at: datetime
-    
-    model_config = ConfigDict(from_attributes=True)
