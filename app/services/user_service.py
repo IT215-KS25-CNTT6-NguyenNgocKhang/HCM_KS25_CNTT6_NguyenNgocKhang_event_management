@@ -10,7 +10,7 @@ def create_user(db : Session, user : UserCreate):
 
     if existing:
         raise BadRequestException(
-            message= "Email đã tồn tại trong database!", 
+            message= "Email đã tồn tại!", 
             error= "EMAIL_ALREADY_EXISTS"
             )
 

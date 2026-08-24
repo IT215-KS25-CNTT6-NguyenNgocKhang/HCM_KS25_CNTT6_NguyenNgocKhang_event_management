@@ -6,6 +6,7 @@ from app.models import event, event_task, user
 from app.routers.health import health_check_router
 from app.routers.auth import auth_router
 from app.routers.user import user_router
+from app.routers.event import event_router
 from app.core.exceptions import ExceptionBase
 from app.utils.response import error_response
 
@@ -18,6 +19,7 @@ Base.metadata.create_all(bind = engine)
 app.include_router(health_check_router)
 app.include_router(auth_router)
 app.include_router(user_router)
+app.include_router(event_router)
 
 @app.exception_handler(ExceptionBase)
 async def custom_exception_handler(request : Request, exc : ExceptionBase):

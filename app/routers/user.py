@@ -5,7 +5,6 @@ from app.services import user_service
 from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.schemas import user_schema
-from typing import List
 from app.utils.response import success_response
 from typing import Optional
 
