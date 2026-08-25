@@ -8,7 +8,6 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     full_name : str = Field(min_length= 5)
     password: str = Field(min_length= 6)
-    role : str = "USER"
 
 class UserUpdate(BaseModel):
     full_name: Optional[str] = None

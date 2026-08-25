@@ -133,7 +133,6 @@ def add_member(
     db: Session,
     event_id: int,
     target_user_id: int,
-    member_role: str,
     current_user: UserModel,
 ):
     # Kiểm tra event tồn tại
@@ -176,7 +175,7 @@ def add_member(
         )
 
     new_staff = EventStaffModel(
-        event_id=event_id, user_id=target_user_id, role=member_role
+        event_id=event_id, user_id=target_user_id
     )
     db.add(new_staff)
     db.commit()
@@ -187,7 +186,7 @@ def add_member(
 # Lấy danh sách thành viên trong sự kiện (chỉ Member xem)
 def get_event_members(
     db: Session, event_id: int, current_user: UserModel
-) -> list:
+):
     event = db.query(EventModel).filter(EventModel.id == event_id).first()
     if not event:
         raise NotFoundException(

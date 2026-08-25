@@ -11,7 +11,12 @@ from typing import Optional
 user_router = APIRouter(prefix="/users", tags=["Users"])
 
 
-@user_router.get("/me", status_code=status.HTTP_200_OK)
+@user_router.get(
+    "/me",
+    status_code=status.HTTP_200_OK,
+    summary="Lấy thông tin cá nhân",
+    description="Xem thông tin chi tiết của tài khoản đang đăng nhập thông qua Bearer Token.",
+)
 def get_my_profile(request : Request, current_user: UserModel = Depends(get_current_user)):
     user_info = user_schema.UserResponse(
         id= current_user.id,
@@ -30,7 +35,12 @@ def get_my_profile(request : Request, current_user: UserModel = Depends(get_curr
     )
 
 
-@user_router.get("", status_code=status.HTTP_200_OK)
+@user_router.get(
+    "",
+    status_code=status.HTTP_200_OK,
+    summary="Lấy danh sách người dùng (Chỉ ADMIN)",
+    description="Dành riêng cho quản trị viên hệ thống. Hỗ trợ lọc theo họ tên, email và trạng thái hoạt động.",
+)
 def get_all_user(
     request : Request, 
     search_name: Optional[str] = None,

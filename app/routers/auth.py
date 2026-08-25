@@ -10,7 +10,10 @@ auth_router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
 @auth_router.post(
-    "/register", status_code=status.HTTP_201_CREATED
+    "/register", 
+    status_code=status.HTTP_201_CREATED,
+    summary="Đăng ký tài khoản mới",
+    description="Tạo mới một tài khoản người dùng với email và mật khẩu. Trả về mã lỗi 400 nếu email đã tồn tại.",
 )
 def register(request : Request, user: UserCreate, db: Session = Depends(get_db)):
     new_user = user_service.create_user(db, user)
@@ -25,7 +28,10 @@ def register(request : Request, user: UserCreate, db: Session = Depends(get_db))
 
 
 @auth_router.post(
-    "/login", status_code=status.HTTP_200_OK
+    "/login", 
+    status_code=status.HTTP_200_OK,
+    summary="Đăng nhập hệ thống",
+    description="Xác thực thông tin email/mật khẩu và cấp Access Token dạng JWT."
 )
 def login(request : Request, user : UserLogin, db : Session = Depends(get_db)):
     user_data = user_service.login(db, user)

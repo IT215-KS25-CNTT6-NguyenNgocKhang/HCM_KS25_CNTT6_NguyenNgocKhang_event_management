@@ -20,7 +20,6 @@ def create_user(db : Session, user : UserCreate):
         email = user.email,
         password_hash = hashed_password,
         full_name = user.full_name,
-        role = user.role
     )
 
     db.add(new_user)
