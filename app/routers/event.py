@@ -3,7 +3,7 @@ from app.db.database import get_db
 from sqlalchemy.orm import Session
 from app.schemas.event_schema import EventCreate, EventResponse, EventUpdate
 from app.schemas.event_staff_schema import EventStaffCreate, EventStaffResponse
-from app.schemas.event_task_schema import EventTaskCreate, EventTaskUpdate, EventTaskResponse
+from app.schemas.event_task_schema import EventTaskCreate, EventTaskResponse
 from app.models.user import UserModel
 from app.services import event_service
 from app.services import event_task_service

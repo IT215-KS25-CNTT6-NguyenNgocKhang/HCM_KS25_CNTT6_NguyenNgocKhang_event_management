@@ -7,10 +7,10 @@ class EventTaskModel(Base):
     __tablename__ = "event_tasks"
 
     id = Column(Integer, primary_key= True, autoincrement= True)
-    event_id = Column(Integer, ForeignKey("events.id"), nullable= False)
+    event_id = Column(Integer, ForeignKey("events.id", ondelete="CASCADE"), nullable= False)
     title = Column(String(255), nullable= False)
     description = Column(Text)
-    assignee_id = Column(Integer, ForeignKey("users.id"), nullable= True)
+    assignee_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable= True)
     status = Column(Enum("TODO", "IN_PROGRESS", "DONE"), default= "TODO") # TO DO hoặc "IN_PROGRESS" hoặc "DONE"
     priority = Column(Enum("LOW", "MEDIUM", "HIGH"), default= "LOW") # LOW / MEDIUM / HIGH
     due_date = Column(DateTime)

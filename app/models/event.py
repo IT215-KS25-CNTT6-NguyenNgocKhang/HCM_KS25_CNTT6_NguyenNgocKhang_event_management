@@ -10,12 +10,12 @@ class EventModel(Base):
     id = Column(Integer, primary_key= True, autoincrement= True)
     name = Column(String(100), nullable= False)
     description = Column(Text)
-    owner_id = Column(Integer, ForeignKey("users.id"), nullable= False)
+    owner_id = Column(Integer, ForeignKey("users.id", ondelete= "CASCADE"), nullable= False)
     created_at = Column(DateTime, default= lambda : datetime.now(), nullable= False)
 
     user = relationship("UserModel", back_populates= "events")
-    event_staff = relationship("EventStaffModel", back_populates= "events")
-    tasks = relationship("EventTaskModel", back_populates= "event")
+    event_staff = relationship("EventStaffModel", back_populates= "events", cascade="all, delete-orphan")
+    tasks = relationship("EventTaskModel", back_populates= "event", cascade="all, delete-orphan")
 
 class EventStaffModel(Base):
     __tablename__ = "event_staff"
