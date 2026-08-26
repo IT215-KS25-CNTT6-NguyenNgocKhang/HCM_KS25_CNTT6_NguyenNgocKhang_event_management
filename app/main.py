@@ -1,5 +1,4 @@
 from fastapi import FastAPI, Request, status
-from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from app.db.database import Base, engine
 from app.models import event, event_task, user

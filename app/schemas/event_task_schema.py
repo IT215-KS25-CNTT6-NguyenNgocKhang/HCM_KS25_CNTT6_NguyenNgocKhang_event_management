@@ -16,8 +16,8 @@ class EventTaskUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     assignee_id: Optional[int] = None
-    status: Optional[str] = None  # TODO / IN_PROGRESS / DONE
-    priority: Optional[str] = None
+    status: Optional[str] = "TODO"  # TODO / IN_PROGRESS / DONE
+    priority: Optional[str] = "LOW"
     due_date: Optional[datetime] = None
 
 class EventTaskResponse(EventTaskBase):

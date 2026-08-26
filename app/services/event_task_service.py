@@ -25,8 +25,11 @@ def create_event_task(db : Session, event_task_in : EventTaskCreate, event_id : 
             error="NOT_EVENT_MEMBER",
         )
 
-    if event_task_in.assignee_id:
-        assignee_role = get_user_event_role(db, event_id, event_task_in.assignee_id)
+    # Nếu assignee_id = 0 -> đổi lại thành None
+    assignee_id = event_task_in.assignee_id if event_task_in.assignee_id and event_task_in.assignee_id > 0 else None
+
+    if assignee_id is not None:
+        assignee_role = get_user_event_role(db, event_id, assignee_id)
         if not assignee_role:
             raise BadRequestException(
                 message="Người được giao việc không thuộc sự kiện này!",
@@ -37,7 +40,7 @@ def create_event_task(db : Session, event_task_in : EventTaskCreate, event_id : 
             event_id= event_id,
             title= event_task_in.title,
             description= event_task_in.description,
-            assignee_id= event_task_in.assignee_id,
+            assignee_id= assignee_id,
             status= "TODO",
             priority= event_task_in.priority,
             due_date= event_task_in.due_date,
